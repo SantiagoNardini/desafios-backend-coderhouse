@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "main": "01-desafio.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+
   },
   "keywords": [],
   "author": "",
