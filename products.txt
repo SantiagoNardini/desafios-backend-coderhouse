@@ -11,7 +11,7 @@
 		},
 		{
 			"id": 2,
-			"title": "Remera negra",
+			"title": "Remera blanca",
 			"description": "Remera de tela color blanca",
 			"price": 7500,
 			"thumbnail": "img ilustrativa",
