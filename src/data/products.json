@@ -1,0 +1,145 @@
+[
+	{
+		"id": 1,
+		"title": "Paris Saint-Germain alternativo",
+		"description": "Camiseta de Futbol para Hombre",
+		"price": 22000,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/522921-1200-1200?v=638158637670330000&width=1200&height=1200&aspect=true",
+		"code": "def123",
+		"stock": 8,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 2,
+		"title": "Liverpool FC Strike",
+		"description": "Camiseta de Futbol para Hombre",
+		"price": 20000,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/157646-1200-1200?v=638086308645200000&width=1200&height=1200&aspect=true",
+		"code": "def456",
+		"stock": 13,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 3,
+		"title": "Paris Saint-Germain Strike Fourth",
+		"description": "Camiseta de Futbol para Hombre",
+		"price": 22999,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/158344-1200-1200?v=638086318056470000&width=1200&height=1200&aspect=true",
+		"code": "abc456",
+		"stock": 6,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 4,
+		"title": "Paris Saint-Germain local",
+		"description": "Camiseta de Futbol para Hombre",
+		"price": 24999,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/209652-1200-1200?v=638098192393330000&width=1200&height=1200&aspect=true",
+		"code": "abc123",
+		"stock": 15,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 5,
+		"title": "FC Barcelona 2022/23 alternativo",
+		"description": "Camiseta de Futbol para Hombre",
+		"price": 24999,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/439275-1200-1200?v=638145700262070000&width=1200&height=1200&aspect=true",
+		"code": "abc789",
+		"stock": 9,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 6,
+		"title": "Nike Dri-FIT Academy",
+		"description": "Remera de Futbol para Hombre",
+		"price": 10999,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/211694-1200-1200?v=638098225459900000&width=1200&height=1200&aspect=true",
+		"code": "ghi123",
+		"stock": 11,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 7,
+		"title": "FC Barcelona Strike",
+		"description": "Camiseta de Futbol para Hombre",
+		"price": 20999,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/159340-1200-1200?v=638086332120000000&width=1200&height=1200&aspect=true",
+		"code": "ghi456",
+		"stock": 12,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 8,
+		"title": "Nike Dri-FIT Academy",
+		"description": "Remera de Futbol para Hombre",
+		"price": 10999,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/213230-1200-1200?v=638098254297730000&width=1200&height=1200&aspect=true",
+		"code": "ghi789",
+		"stock": 10,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 9,
+		"title": "Liverpool FC visitante",
+		"description": "Camiseta de Futbol para Hombre",
+		"price": 24999,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/209888-1200-1200?v=638098195781530000&width=1200&height=1200&aspect=true",
+		"code": "jkl123",
+		"stock": 5,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 10,
+		"title": "Club Atlético de Madrid local",
+		"description": "Camiseta de Futbol para Hombre",
+		"price": 24999,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/156798-1200-1200?v=638086296845400000&width=1200&height=1200&aspect=true",
+		"code": "def789",
+		"stock": 25,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 11,
+		"title": "Nigeria",
+		"description": "Remera de Futbol para Hombre",
+		"price": 16499,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/522911-1200-1200?v=638158637507900000&width=1200&height=1200&aspect=true",
+		"code": "j1j0",
+		"stock": 8,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 12,
+		"title": "Liverpool FC alternativo",
+		"description": "Camiseta de Futbol para Hombre",
+		"price": 24999,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/439157-1200-1200?v=638145698515600000&width=1200&height=1200&aspect=true",
+		"code": "j1j4",
+		"stock": 8,
+		"status": true,
+		"category": "Hombre"
+	},
+	{
+		"id": 13,
+		"title": "FC Barcelona Strike",
+		"description": "Camiseta de Futbol para Hombre",
+		"price": 20999,
+		"thumbnail": "https://nikearprod.vtexassets.com/arquivos/ids/158338-1200-1200?v=638086317971470000&width=1200&height=1200&aspect=true",
+		"code": "j4s4",
+		"stock": 8,
+		"status": true,
+		"category": "Hombre"
+	}
+]
