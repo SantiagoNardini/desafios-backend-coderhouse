@@ -6,9 +6,12 @@ import cartsRouter from "./routers/carts.router.js";
 import viewsRouter from "./routers/views.router.js";
 import { Server } from "socket.io";
 import { manager } from "./manager/productManager.js";
+import mongoose from "mongoose";
 
 const app = express();
 app.use(express.json());
+
+mongoose.connect('mongodb+srv://CoderUser:<password>@codercluster.8baqy0g.mongodb.net/?retryWrites=true&w=majority')
 
 const httpServer = app.listen(8080, () =>
   console.log("Servidor escuchando en el puerto 8080")
