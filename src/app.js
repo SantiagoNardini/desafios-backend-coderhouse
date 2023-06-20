@@ -7,11 +7,19 @@ import viewsRouter from "./routers/views.router.js";
 import { Server } from "socket.io";
 import { manager } from "./manager/productManager.js";
 import mongoose from "mongoose";
+import userModel from "./models/user.model.js";
 
 const app = express();
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://CoderUser:<password>@codercluster.8baqy0g.mongodb.net/?retryWrites=true&w=majority')
+const environment = async () => {
+  await mongoose.connect('mongodb+srv://CoderUser:<password>@codercluster.8baqy0g.mongodb.net/?retryWrites=true&w=majority')
+  let users = await userModel.paginate({gender:"Female"},{limit:20,page:1})
+  console.log(users);
+}
+
+environment()
+
 
 const httpServer = app.listen(8080, () =>
   console.log("Servidor escuchando en el puerto 8080")
