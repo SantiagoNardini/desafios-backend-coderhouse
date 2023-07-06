@@ -1,54 +1,89 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-6">
-      <div id="formContainer">
-        <h2>Cargar un producto</h2>
-        <div class="mb-3">
-          <label for="title" class="form-label">Titulo:</label>
-          <input type="text" id="title" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="description" class="form-label">Description:</label>
-          <input type="text" id="description" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="price" class="form-label">Precio:</label>
-          <input type="text" id="price" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="thumbnail" class="form-label">Imagen:</label>
-          <input type="text" id="thumbnail" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="code" class="form-label">Codigo:</label>
-          <input type="text" id="code" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="stock" class="form-label">Stock:</label>
-          <input type="text" id="stock" class="form-control" />
-        </div>
-        <button id="btnCrear" class="btn btn-primary">Crear</button>
-      </div>
-    </div>
-    <div class="col-6">
-      <div>
-        <h2>Eliminar producto</h2>
-        <div class="mb-3">
-          <label for="id" class="form-label">Id:</label>
-          <input type="text" id="id" class="form-control">
-        </div>
-        <button id="btnDelete" class="btn btn-danger">Eliminar</button>
-      </div>
-      <div id="productsContainer">
-
-
-      </div>
-
-
-    </div>
-  </div>
+<div>
+    <h2 class="text-center mt-4" >Real Time Products</h2>
 </div>
-<h2>Listado de productos</h2>
-<div id="historyProducts"></div>
+
+
+<ul class="nav nav-tabs m-2" id="productTabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="addProductTab" data-bs-toggle="tab" data-bs-target="#addProduct" type="button" role="tab" aria-controls="addProduct" aria-selected="true">Añadir producto</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="deleteProductTab" data-bs-toggle="tab" data-bs-target="#deleteProduct" type="button" role="tab" aria-controls="deleteProduct" aria-selected="false">Eliminar producto</button>
+  </li>
+</ul>
+
+<div class="tab-content" id="productTabContent">
+  <div class="tab-pane fade show active" id="addProduct" role="tabpanel" aria-labelledby="addProductTab">
+      <!-- Formulario para añadir un producto -->
+    <form class="p-5" action="/api/products" method="POST">
+  <div class="mb-6">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title" required>
+  </div>
+  <div class="mb-6">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="description" name="description" required>
+  </div>
+  <div class="mb-6">
+    <label for="price" class="form-label">Price</label>
+    <input type="number" class="form-control" id="price" name="price" required>
+  </div>
+  <div class="mb-6">
+    <label for="thumbnails" class="form-label">Thumbnails</label>
+    <input type="text" class="form-control" id="thumbnails" name="thumbnails" required>
+  </div>
+  <div class="mb-6">
+    <label for="code" class="form-label">Code</label>
+    <input type="text" class="form-control" id="code" name="code" required>
+  </div>
+  <div class="mb-6">
+    <label for="stock" class="form-label">Stock</label>
+    <input type="number" class="form-control" id="stock" name="stock" required>
+  </div>
+  <div class="mb-6">
+    <label for="category" class="form-label">Category</label>
+    <input type="text" class="form-control" id="category" name="category" required>
+  </div>
+  <div class="pt-3">
+    <button type="submit" id="addProduct" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+  </div>
+  <div class="tab-pane fade" id="deleteProduct" role="tabpanel" aria-labelledby="deleteProductTab">
+    <!-- Contenido para eliminar un producto -->
+    <form class="p-5">
+      <div class="mb-6">
+        <label for="pid" class="form-label">ID del Producto</label>
+        <input class="form-control" id="pid" name="pid" required>
+      </div>
+        <div class="pt-3">
+          <button type="button" id="deletProduct" class="btn btn-primary">Submit</button>
+       </div>
+    </form>
+</div>
+
+   <section class="p-5">
+    <h2 class="text-center">Productos</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Code</th>
+        <th>Stock</th>
+        <th>Status</th>
+        <th>Thumbnails</th>
+      </tr>
+    </thead>
+    <tbody id="productList">
+      <!-- Mapeo de productos -->
+    </tbody>
+  </table>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/socket.io/socket.io.js"></script>
-<script src="/js/socketClient.js"></script>
+<script src="js/realTimeProducts.js"></script>

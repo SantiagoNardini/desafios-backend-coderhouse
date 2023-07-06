@@ -1,70 +1,103 @@
 import express from "express";
-import __dirname from "./utils.js";
 import handlebars from "express-handlebars";
-import productsRouter from "./routers/products.router.js";
-import cartsRouter from "./routers/carts.router.js";
-import viewsRouter from "./routers/views.router.js";
-import { Server } from "socket.io";
-import { manager } from "./manager/productManager.js";
+import ifEqHelper from "../src/helpers/handlebars-helpers.js";
+import { multiplyHelper, calculateTotal } from "./helpers/cartHelper.js";
 import mongoose from "mongoose";
-import userModel from "./models/user.model.js";
+import { Server } from "socket.io";
+import ProductManager from "./DAO/productsDAO.js";
+import MessagesManager from "./DAO/messagesDAO.js";
+import cartRouter from "./routes/cart.routes.js";
+import productsRouter from "./routes/products.routes.js";
+import chatRouter from "./routes/chat.routes.js";
+import viewsRouter from "./routes/views.routes.js";
 
 const app = express();
+
 app.use(express.json());
-
-const environment = async () => {
-  await mongoose.connect('mongodb+srv://CoderUser:<password>@codercluster.8baqy0g.mongodb.net/?retryWrites=true&w=majority')
-  let users = await userModel.paginate({gender:"Female"},{limit:20,page:1})
-  console.log(users);
-}
-
-environment()
-
-
-const httpServer = app.listen(8080, () =>
-  console.log("Servidor escuchando en el puerto 8080")
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.engine(
+  "handlebars",
+  handlebars.engine({
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true,
+    },
+    helpers: {
+      if_eq: ifEqHelper,
+      multiply: multiplyHelper,
+      calculateTotal: calculateTotal,
+    },
+  })
+);
+app.set("views", "./src/views");
+app.set("view engine", "handlebars");
+app.use("/api/products", productsRouter);
+app.use("/api/cart", cartRouter);
+app.use("/", viewsRouter);
+app.use("/realtimeproducts", viewsRouter);
+app.use("/carts", viewsRouter);
+app.use("/chat", chatRouter);
+const server = app.listen(8080, () =>
+  console.log("Corriendo en el puerto: 8080")
 );
 
-const io = new Server(httpServer);
+mongoose.connect(
+  "mongodb+srv://CoderUser:Coder@codercluster.8baqy0g.mongodb.net/?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
-app.engine("handlebars", handlebars.engine());
-app.set("views", __dirname + "/views");
-app.set("view engine", "handlebars");
+const db = mongoose.connection;
 
-app.use(express.static(__dirname + "/public"));
+db.on("error", (error) => {
+  console.error("Error de conexión:", error);
+});
 
-app.use("/", viewsRouter);
-app.use("/api/products/", productsRouter);
-app.use("/api/carts/", cartsRouter);
+db.once("open", () => {
+  console.log("Conexión exitosa a la base de datos.");
+});
+
+const io = new Server(server);
+const manager = new ProductManager();
+const managerMsg = new MessagesManager();
+const message = [];
 
 io.on("connection", async (socket) => {
-  console.log("Nuevo cliente conectado!");
-  const data = await manager.getProducts();
-  if (data) {
-    io.emit("resp-new-product", data);
-  }
-  socket.on("new-product", async (data) => {
-    const result = await manager.addProduct(data);
-    if (result == "406b") {
-      socket.emit("resp-new-product", "El producto ya existe");
-    } else if (result == "406a") {
-      socket.emit("resp-new-product", "Todos los campos son obligatorios");
+  console.log("nuevo cliente conectado");
+  const products = await manager.getProducts();
+  io.emit("productList", products);
+  socket.on("product", async (newProd) => {
+    const resultAdd = await manager.addProduct(newProd);
+    if (resultAdd.error) {
+      socket.emit("productAddError", resultAdd.error);
     } else {
-      const products = await manager.getProducts();
-      if (products) {
-        io.emit("resp-new-product", products);
-      }
+      const productsGet = await manager.getProducts();
+      io.emit("productList", productsGet);
+      socket.emit("productAddSuccess");
     }
   });
-  socket.on("delete-product", async (id) => {
-    const result = await manager.deleteProduct(parseInt(id));
-    if (result == 406) {
-      socket.emit("resp-delete-product", "El producto no existe");
-    } else {
+
+  socket.on("productDelete", async (delProduct) => {
+    try {
+      let pid = await manager.deleteProduct(delProduct);
       const products = await manager.getProducts();
-      if (products) {
-        io.emit("resp-delete-product", products);
-      }
+      io.emit("productList", products);
+    } catch (error) {
+      socket.emit("productDeleteError", error.message);
+    }
+  });
+
+  socket.on("messages", async (data) => {
+    let msgSend;
+    try {
+      msgSend = await managerMsg.addMessage(data);
+      message.unshift(data);
+      io.emit("messageLogs", message);
+    } catch (error) {
+      throw error;
     }
   });
 });
