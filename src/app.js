@@ -10,6 +10,9 @@ import cartRouter from "./routes/cart.routes.js";
 import productsRouter from "./routes/products.routes.js";
 import chatRouter from "./routes/chat.routes.js";
 import viewsRouter from "./routes/views.routes.js";
+import session from 'express-session';
+import sessionRouter from '../routes/session.js';
+import MongoStore from 'connect-mongo';
 
 const app = express();
 
@@ -42,13 +45,18 @@ const server = app.listen(8080, () =>
   console.log("Corriendo en el puerto: 8080")
 );
 
-mongoose.connect(
-  "mongodb+srv://CoderUser:Coder@codercluster.8baqy0g.mongodb.net/?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+app.use(session({
+  store: MongoStore.create({
+    mongoUrl: "mongodb+srv://CoderUser:Coder@codercluster.8baqy0g.mongodb.net/?retryWrites=true&w=majority",
+    mongoOptions:{ useUnifiedTopology:true},
+    ttl:3600
+  }),
+  secret:"secreto",
+  resave:true,
+  saveUninitialized:true
+}))
+
+app.use('/api/session', sessionRouter)
 
 const db = mongoose.connection;
 
